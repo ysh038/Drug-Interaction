@@ -1,14 +1,19 @@
 import React, {useState, useEffect} from 'react';
-import {Text, View, StyleSheet} from 'react-native';
+import {Text, View, StyleSheet, Platform} from 'react-native';
 // import { ScrollView } from 'react-native-web';
 import axios from 'axios';
 
-// SpringBoot 서버 url, 클라이언트에서 cors에러 해결 실패, SpringBoot에서 CrossOrigin 어노테이션 통해 해결
-// android 에뮬레이터는 localhost말고 10.0.0.2로 해야함.
-const url = 'http://10.0.2.2:8080';
-
 function App() {
   const [data, setData] = useState(null);
+  let url = '';
+
+  // SpringBoot 서버 url, 클라이언트에서 cors에러 해결 실패, SpringBoot에서 CrossOrigin 어노테이션 통해 해결
+  // android 에뮬레이터는 localhost말고 10.0.0.2로 해야함.
+  if (Platform.OS === 'android') {
+    url = 'http://10.0.2.2:8080';
+  } else {
+    url = 'http://localhost:8080';
+  }
 
   useEffect(() => {
     // GET 요청 보내기
@@ -33,6 +38,14 @@ function App() {
       flex: 1,
       justifyContent: 'center',
       alignItems: 'center',
+      ...Platform.select({
+        ios: {
+          backgroundColor: 'red',
+        },
+        default: {
+          backgroundColor: 'blue',
+        },
+      }),
     },
   });
 
@@ -44,6 +57,7 @@ function App() {
       ) : (
         <Text>SpringBoot 서버와 연결에 실패했습니다.</Text>
       )}
+      <Text>{Platform.OS}</Text>
     </View>
   );
 }
