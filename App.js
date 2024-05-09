@@ -4,7 +4,8 @@ import {Text, View, StyleSheet} from 'react-native';
 import axios from 'axios';
 
 // SpringBoot 서버 url, 클라이언트에서 cors에러 해결 실패, SpringBoot에서 CrossOrigin 어노테이션 통해 해결
-const url = 'http://localhost:8080';
+// android 에뮬레이터는 localhost말고 10.0.0.2로 해야함.
+const url = 'http://10.0.2.2:8080';
 
 function App() {
   const [data, setData] = useState(null);
@@ -38,7 +39,6 @@ function App() {
   return (
     <View style={styles.container}>
       <Text>Hello world from React Naitve Web</Text>
-      <br/>
       {data ? (
         <Text>{data}</Text>
       ) : (
