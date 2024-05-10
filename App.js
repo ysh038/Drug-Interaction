@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {Text, View, StyleSheet, Platform} from 'react-native';
 // import { ScrollView } from 'react-native-web';
 import axios from 'axios';
+import MainNav from './components/mainNav';
 
 function App() {
   const [data, setData] = useState(null);
@@ -51,6 +52,7 @@ function App() {
 
   return (
     <View style={styles.container}>
+      <MainNav />
       <Text>Hello world from React Naitve Web</Text>
       {data ? (
         <Text>{data}</Text>
